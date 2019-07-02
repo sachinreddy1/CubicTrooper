@@ -55,7 +55,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\GunMagazine.cs" />
+     <Compile Include="Assets\Scripts\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\Wave.cs" />
+     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <Compile Include="Assets\Scripts\WeaponInventory.cs" />
      <Compile Include="Assets\Scripts\WeaponSlot.cs" />
@@ -65,6 +69,9 @@
      <None Include="Assets\Fonts\Roboto\LICENSE.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
@@ -87,6 +94,9 @@
  <Reference Include="Unity.2D.Tilemap.Editor">
  <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
  <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
@@ -101,12 +111,6 @@
  </Reference>
  <Reference Include="Unity.ugui.Editor">
  <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Unity.ugui.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Cinemachine">
- <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.cinemachine.editor">
- <HintPath>/Users/sachinreddy/Documents/Project_Files/Testing/6_17_Test/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2019.3.0a3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

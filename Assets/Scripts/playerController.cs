@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-
+    public static Transform position;
     public float runSpeed = 4f;
     public float horizontalMove = 0f;
     public float verticalMove = 0f;
@@ -16,6 +16,7 @@ public class playerController : MonoBehaviour
     private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        position = transform;
     }
 
     // Update is called once per frame
