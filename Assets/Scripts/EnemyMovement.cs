@@ -20,10 +20,15 @@ public class EnemyMovement : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         transform.Translate(dir.normalized * enemy.speed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.4f) {
-            Debug.Log("Taking damage.");
+        if (Vector3.Distance(transform.position, target.position) <= 0.6f) {
+            TakeDamage();
         }
 
         enemy.speed = enemy.startSpeed;
+    }
+
+    void TakeDamage() {
+        Debug.Log("Taking damage.");
+        PlayerStats.Lives--;
     }
 }

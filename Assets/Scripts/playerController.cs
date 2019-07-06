@@ -16,7 +16,6 @@ public class playerController : MonoBehaviour
     private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        position = transform;
     }
 
     // Update is called once per frame
@@ -24,6 +23,7 @@ public class playerController : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * runSpeed;
+        position = transform;
     }
 
     void FixedUpdate() {

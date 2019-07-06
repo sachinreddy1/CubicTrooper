@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\GunMagazine.cs" />
+     <Compile Include="Assets\Scripts\HealthUI.cs" />
+     <Compile Include="Assets\Scripts\MoneyUI.cs" />
      <Compile Include="Assets\Scripts\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
      <Compile Include="Assets\Scripts\WaveSpawner.cs" />

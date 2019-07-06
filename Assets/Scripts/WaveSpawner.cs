@@ -18,11 +18,11 @@ public class WaveSpawner : MonoBehaviour
         if (EnemiesAlive > 0)
             return;
 
-        // if (waveNumber == waves.Length) {
-        //     Debug.Log("Level Complete.");
-        //     gameManager.WinLevel();
-        //     this.enabled = false;
-        // }
+        if (waveNumber == waves.Length) {
+            Debug.Log("Level Complete.");
+            // gameManager.WinLevel();
+            this.enabled = false;
+        }
 
         if (countDown <= 0f) {
             StartCoroutine(SpawnWave());
@@ -32,13 +32,13 @@ public class WaveSpawner : MonoBehaviour
 
         countDown -= Time.deltaTime;
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
-        // waveCountdownText.text = string.Format("{0:00.00}", countDown);
+        waveCountdownText.text = string.Format("{0:00.00}", countDown);
     }
 
     IEnumerator SpawnWave() {
         PlayerStats.Rounds++;
         Wave wave = waves[waveNumber];
-        EnemiesAlive = wave.count;  //
+        EnemiesAlive = wave.count;
 
         for (int i = 0; i < wave.count; i++)
         {
