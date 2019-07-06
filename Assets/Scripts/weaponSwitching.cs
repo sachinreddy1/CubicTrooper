@@ -48,6 +48,10 @@ public class weaponSwitching : MonoBehaviour
         }
     }
 
+    // -------------------------------------------------- //
+    // Switching between weapons
+    // -------------------------------------------------- //
+
     public void SelectWeapon() {
         int i = 0;
         foreach (Transform weapon in transform)
@@ -61,6 +65,10 @@ public class weaponSwitching : MonoBehaviour
             i++;    
         }
     }
+
+    // -------------------------------------------------- //
+    // Weapon methods (Might be moved to Weapon script)
+    // -------------------------------------------------- //
 
     void Shoot() {
         if (currentWeapon.bullets > 0) {

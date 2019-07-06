@@ -11,10 +11,10 @@ public class WaveSpawner : MonoBehaviour
     public Text waveCountdownText;
     private float countDown = 2f;
     private int waveNumber = 0;
-
+    //
     public GameObject spawns;
     public static Transform[] spawnPoints;
-
+    //
     public GameManager gameManager;
 
     void Awake() 

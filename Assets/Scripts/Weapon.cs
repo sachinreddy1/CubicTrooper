@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
     public int weaponNumber;
+    //
     public Sprite weaponIcon;
-
     //
     public GameObject bulletPrefab;
     public Transform firePoint;

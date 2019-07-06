@@ -8,7 +8,7 @@ public class WeaponSlot : MonoBehaviour
     public Weapon weapon;
 
     public Text weaponNumber;
-    public Sprite weaponIcon;
+    public Image weaponIcon;
 
     public Animator animator;
 
@@ -18,7 +18,7 @@ public class WeaponSlot : MonoBehaviour
 
     public void UpdateSlot() {
         weaponNumber.text = weapon.weaponNumber.ToString();
-        weaponIcon = weapon.weaponIcon;
+        weaponIcon.sprite = weapon.weaponIcon;
     }
 
 }
