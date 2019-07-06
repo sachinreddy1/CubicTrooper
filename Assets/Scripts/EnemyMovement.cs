@@ -11,7 +11,8 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<Enemy>();
-        target = playerController.position;
+        //target = playerController.position;
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     // Update is called once per frame

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    public static Transform position;
     public float runSpeed = 4f;
     public float horizontalMove = 0f;
     public float verticalMove = 0f;
@@ -23,7 +22,6 @@ public class playerController : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * runSpeed;
-        position = transform;
     }
 
     void FixedUpdate() {
