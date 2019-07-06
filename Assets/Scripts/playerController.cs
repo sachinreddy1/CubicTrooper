@@ -20,11 +20,17 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameEnded) 
+            return;
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * runSpeed;
     }
 
     void FixedUpdate() {
+        if (GameManager.gameEnded) 
+            return;
+            
         Move();
     }
 

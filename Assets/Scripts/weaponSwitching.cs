@@ -30,6 +30,9 @@ public class weaponSwitching : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.gameEnded) 
+            return;
+            
         // Left click pressed (Shoot)
         if (Input.GetMouseButtonDown(0)) {
             if (!currentWeapon.isReloading)
