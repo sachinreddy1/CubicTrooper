@@ -51,7 +51,7 @@ public class GunMagazine : MonoBehaviour
     }
 
     public void Reload() {
-        if (weaponHolder.currentWeapon.bullets < weaponHolder.currentWeapon.magCapacity) {
+        if (weaponHolder.currentWeapon.bullets < weaponHolder.currentWeapon.magCapacity && weaponHolder.currentWeapon.remainingBullets > 0) {
             reloadTimer.gameObject.SetActive(true);
             reloadCoroutine = StartCoroutine(ReloadDelay());
         }

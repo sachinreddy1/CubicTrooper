@@ -22,25 +22,26 @@ public class WeaponUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         int previousSelectedWeapon = weaponHolder.selectedWeapon;
 
         if (Input.GetKeyDown("1")){
             weaponHolder.selectedWeapon = 0;
             weaponHolder.SelectWeapon();
-            UpdateUI();
         }
         if (Input.GetKeyDown("2")){
             weaponHolder.selectedWeapon = 1;
             weaponHolder.SelectWeapon();
-            UpdateUI();
         }
         if (Input.GetKeyDown("3")){
             weaponHolder.selectedWeapon = 2;
             weaponHolder.SelectWeapon();
-            UpdateUI();
         }
 
+        UpdateUI();
+
         if (previousSelectedWeapon != weaponHolder.selectedWeapon) {
+            GunMagazine.instance.StopReloading();
             if (GunMagazine.instance.OnWeaponUsedCallback != null)
                 GunMagazine.instance.OnWeaponUsedCallback.Invoke();
         }

@@ -10,6 +10,8 @@ public class WeaponSlot : MonoBehaviour
     public Text weaponNumber;
     public Image weaponIcon;
 
+    public Text ammoLeft;
+
     public Animator animator;
 
     public void Toggle(bool val) {
@@ -19,6 +21,7 @@ public class WeaponSlot : MonoBehaviour
     public void UpdateSlot() {
         weaponNumber.text = weapon.weaponNumber.ToString();
         weaponIcon.sprite = weapon.weaponIcon;
+        ammoLeft.text = weapon.remainingBullets.ToString();
     }
 
 }

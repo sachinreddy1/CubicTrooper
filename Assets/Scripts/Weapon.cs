@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
-    public int weaponNumber;    //
+    public int weaponNumber;
     //
     public Sprite weaponIcon;
     //
@@ -18,7 +18,10 @@ public class Weapon : MonoBehaviour
     //
     public int magCapacity = 5;
     public int bullets;
+
     public bool isReloading = false;
+    //
+    public int remainingBullets;
     //
     private weaponSwitching weaponHolder;
     private GunMagazine gunMagazine;
@@ -47,9 +50,16 @@ public class Weapon : MonoBehaviour
     }
 
     public void Reload() {
-        bullets = magCapacity;
-        isReloading = false;
+        if (remainingBullets + bullets <= magCapacity) {
+            bullets += remainingBullets;
+            remainingBullets = 0;
+        }
+        else {
+            remainingBullets -= (magCapacity - bullets);
+            bullets = magCapacity;
+        }
 
+        isReloading = false;
         if (gunMagazine.OnWeaponUsedCallback != null)
             gunMagazine.OnWeaponUsedCallback.Invoke();
     } 
