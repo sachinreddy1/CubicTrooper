@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     //
     public float reloadTime = 50f;
     public float recoil = 50f;
+    public float fireRate = 0f;
     //
     public int magCapacity = 5;
     public int bullets;
