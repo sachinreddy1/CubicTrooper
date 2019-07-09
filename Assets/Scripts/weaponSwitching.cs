@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class weaponSwitching : MonoBehaviour
 {
+    public bool canShoot = true;
+    //
     public int selectedWeapon = 0;
     public Weapon currentWeapon;
     //
@@ -25,19 +27,21 @@ public class weaponSwitching : MonoBehaviour
             return;
             
         // Left click pressed (Shoot)
-        if (currentWeapon.fireRate <= 0f) {
-            if (Input.GetMouseButtonDown(0)) {
-                if (!currentWeapon.isReloading)
-                    currentWeapon.Shoot();
+        if (canShoot) {
+            if (currentWeapon.fireRate <= 0f) {
+                if (Input.GetMouseButtonDown(0)) {
+                    if (!currentWeapon.isReloading)
+                        currentWeapon.Shoot();
+                }
             }
-        }
-        else {
-            if (Input.GetMouseButtonDown(0)) {
-                if (!currentWeapon.isReloading)
-                    currentWeapon.InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
-            }
-            else if (Input.GetMouseButtonUp(0)) {
-                    currentWeapon.CancelInvoke("Shoot");
+            else {
+                if (Input.GetMouseButtonDown(0)) {
+                    if (!currentWeapon.isReloading)
+                        currentWeapon.InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
+                }
+                else if (Input.GetMouseButtonUp(0)) {
+                        currentWeapon.CancelInvoke("Shoot");
+                }
             }
         }
 

@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     //
     public int magCapacity = 5;
     public int bullets;
-
+    public int ammoCost = 100;
     public bool isReloading = false;
     //
     public int remainingBullets;
@@ -64,5 +64,8 @@ public class Weapon : MonoBehaviour
         if (gunMagazine.OnWeaponUsedCallback != null)
             gunMagazine.OnWeaponUsedCallback.Invoke();
     } 
+
+    // ------------------------------------------------------------ //
+
 
 }
