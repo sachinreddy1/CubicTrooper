@@ -60,12 +60,10 @@ public class weaponSwitching : MonoBehaviour
 
     public void SelectWeapon() {
         int i = 0;
-        // Change to Slot
         foreach (Transform weaponHolderSlot in transform)
         {
             if (i == selectedWeapon) {
                 weaponHolderSlot.gameObject.SetActive(true);
-                weaponHolderSlot.GetComponent<WeaponHolderSlot>().SelectWeapon();
                 currentWeapon = weaponHolderSlot.GetComponent<WeaponHolderSlot>().weapon;
             }
             else
@@ -77,7 +75,6 @@ public class weaponSwitching : MonoBehaviour
     // -------------------------------------------------- //
 
     public void Recoil() {
-        // Recoil in the opposite direction of shoot
         Vector3 direction = currentWeapon.firePoint.position - currentWeapon.gunButt.position;
         rb.AddForceAtPosition(-direction.normalized * currentWeapon.recoil, transform.position);
     }

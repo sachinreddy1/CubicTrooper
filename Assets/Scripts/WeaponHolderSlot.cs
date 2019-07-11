@@ -9,6 +9,10 @@ public class WeaponHolderSlot : MonoBehaviour
 
     public Weapon weapon;    
 
+    void Start() {
+        SelectWeapon();
+    }
+
     // void BuyWeapon (WeaponBlueprint blueprint) {
     //     if (PlayerStats.Money < blueprint.upgradeCosts[0])
     //     {

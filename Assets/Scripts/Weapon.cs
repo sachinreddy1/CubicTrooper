@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
     public int weaponNumber;
+    public Sprite weaponIcon;
     
     [Header("General")]
-    public Sprite weaponIcon;
-    //
     public GameObject bulletPrefab;
     public Transform firePoint;
     public Transform gunButt;
@@ -21,9 +20,9 @@ public class Weapon : MonoBehaviour
     // Bullet Stats
     public int magCapacity = 5;
     public int bullets;
-    public bool isReloading = false;
-    //
     public int remainingBullets;
+    [HideInInspector]
+    public bool isReloading = false;
     
     [Header("Unity Setup Attr.")]
     private weaponSwitching weaponHolder;

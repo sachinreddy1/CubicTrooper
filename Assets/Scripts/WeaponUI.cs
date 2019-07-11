@@ -22,7 +22,6 @@ public class WeaponUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         int previousSelectedWeapon = weaponHolder.selectedWeapon;
 
         if (Input.GetKeyDown("1")){
@@ -38,6 +37,7 @@ public class WeaponUI : MonoBehaviour
             weaponHolder.SelectWeapon();
         }
 
+        // Needs to be moved.
         UpdateUI();
 
         if (previousSelectedWeapon != weaponHolder.selectedWeapon) {
@@ -58,14 +58,14 @@ public class WeaponUI : MonoBehaviour
         // Set weapon to active or disabled based on weapons in inventory
         for (int i = 0; i < weaponHolder.gameObject.transform.childCount; i++)
         {
+            // Get the UI slot
             WeaponSlot slot = transform.GetChild(i).gameObject.GetComponent<WeaponSlot>();
-            WeaponHolderSlot weaponHolderSlot = weaponHolder.gameObject.transform.GetChild(i).gameObject.GetComponent<WeaponHolderSlot>();
-            //
-            weaponHolderSlot.SelectWeapon();
-            //
+            // Get slot from weaponHolder
+            WeaponHolderSlot weaponHolderSlot = weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>();
+            // Set UI slot weapon from weaponSlot weapon
             slot.weapon = weaponHolderSlot.weapon;
             slot.UpdateSlot();
-
+            // Toggle Slot based on selected weapon
             if (weaponHolder.selectedWeapon == i)
                 slot.Toggle(true);
             else
