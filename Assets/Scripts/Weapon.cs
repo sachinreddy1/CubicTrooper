@@ -31,11 +31,11 @@ public class Weapon : MonoBehaviour
     
     [Header("Shop Prices")]
     public int ammoCost = 100;
-    public int upgradeCost = 500;
+    public int upgradeCost = 1000;
 
     void Start() {
         gunMagazine = GunMagazine.instance;
-        weaponHolder = transform.parent.gameObject.GetComponent<weaponSwitching>();
+        weaponHolder = GameObject.FindGameObjectWithTag("weaponController").GetComponent<weaponSwitching>();
         bullets = magCapacity;
     }
 

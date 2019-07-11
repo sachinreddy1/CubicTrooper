@@ -60,14 +60,16 @@ public class weaponSwitching : MonoBehaviour
 
     public void SelectWeapon() {
         int i = 0;
-        foreach (Transform weapon in transform)
+        // Change to Slot
+        foreach (Transform weaponHolderSlot in transform)
         {
             if (i == selectedWeapon) {
-                weapon.gameObject.SetActive(true);
-                currentWeapon = weapon.GetComponent<Weapon>();
+                weaponHolderSlot.gameObject.SetActive(true);
+                weaponHolderSlot.GetComponent<WeaponHolderSlot>().SelectWeapon();
+                currentWeapon = weaponHolderSlot.GetComponent<WeaponHolderSlot>().weapon;
             }
             else
-                weapon.gameObject.SetActive(false);
+                weaponHolderSlot.gameObject.SetActive(false);
             i++;    
         }
     }

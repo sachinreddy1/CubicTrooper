@@ -21,9 +21,4 @@ public class WeaponUpgradeSlot : MonoBehaviour
         ammoCost.text = "$" + weapon.ammoCost.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

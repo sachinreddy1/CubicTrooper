@@ -70,7 +70,7 @@
      <Compile Include="Assets\Scripts\WaveSpawner.cs" />
      <Compile Include="Assets\Scripts\WaveUI.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
-     <Compile Include="Assets\Scripts\WeaponBlueprint.cs" />
+     <Compile Include="Assets\Scripts\WeaponHolderSlot.cs" />
      <Compile Include="Assets\Scripts\WeaponSlot.cs" />
      <Compile Include="Assets\Scripts\WeaponUI.cs" />
      <Compile Include="Assets\Scripts\WeaponUpgradeSlot.cs" />
