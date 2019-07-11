@@ -49,6 +49,7 @@ public class WeaponUI : MonoBehaviour
 
     void UpdateUI () {
         for (int i = 0; i < transform.childCount; i++) {
+            //
             if (i < weaponHolder.gameObject.transform.childCount)
                 transform.GetChild(i).gameObject.SetActive(true);
             else
