@@ -48,9 +48,11 @@ public class WeaponUI : MonoBehaviour
     }
 
     void UpdateUI () {
+        // Setting weapon Icon UI based on weapons in weaponHolder and if item is bought
         for (int i = 0; i < transform.childCount; i++) {
-            if (i < weaponHolder.gameObject.transform.childCount)
+            if (weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>().isBought) {
                 transform.GetChild(i).gameObject.SetActive(true);
+            }
             else
                 transform.GetChild(i).gameObject.SetActive(false);
         }

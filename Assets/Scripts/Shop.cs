@@ -42,18 +42,6 @@ public class Shop : MonoBehaviour
             weaponHolder.canShoot = true;
             shopUIAnimator.SetBool("inRange", false);
         }
-    }
-
-    // Maybe this should go on each individual WeaponUpgrade listing
-    public void AddAmmo(int weaponNumber) {
-        Weapon weapon = weaponTransform.GetChild(weaponNumber).GetComponent<WeaponHolderSlot>().weapon.GetComponent<Weapon>();
-        weapon.remainingBullets += 10;
-        PlayerStats.Money -= weapon.ammoCost;
-    }
-
-    public void UpgradeWeapon(int weaponNumber) {
-        WeaponHolderSlot weaponHolderSlot = weaponTransform.GetChild(weaponNumber).GetComponent<WeaponHolderSlot>();
-        weaponHolderSlot.UpgradeWeapon();
-    }
+    }    
 
 }
