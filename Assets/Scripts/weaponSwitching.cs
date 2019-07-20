@@ -17,7 +17,7 @@ public class weaponSwitching : MonoBehaviour
     void Start()
     {
         gunMagazine = GunMagazine.instance;
-        SelectWeapon();
+        
         rb = player.GetComponent<Rigidbody2D>();
     }
 
@@ -25,9 +25,11 @@ public class weaponSwitching : MonoBehaviour
     {
         if (GameManager.gameEnded) 
             return;
-            
+        
+        SelectWeapon();
+
         // Left click pressed (Shoot)
-        if (canShoot) {
+        if (canShoot && currentWeapon != null) {
             if (currentWeapon.fireRate <= 0f) {
                 if (Input.GetMouseButtonDown(0)) {
                     if (!currentWeapon.isReloading)
@@ -64,7 +66,10 @@ public class weaponSwitching : MonoBehaviour
         {
             if (i == selectedWeapon) {
                 weaponHolderSlot.gameObject.SetActive(true);
-                currentWeapon = weaponHolderSlot.GetComponent<WeaponHolderSlot>().weapon;
+                // Check if weaponSlot is bought
+                WeaponHolderSlot weaponHolderSlot_ = weaponHolderSlot.GetComponent<WeaponHolderSlot>();
+                if (weaponHolderSlot_.isBought)
+                    currentWeapon = weaponHolderSlot_.weapon;
             }
             else
                 weaponHolderSlot.gameObject.SetActive(false);

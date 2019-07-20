@@ -64,14 +64,19 @@ public class WeaponUI : MonoBehaviour
             WeaponSlot slot = transform.GetChild(i).gameObject.GetComponent<WeaponSlot>();
             // Get slot from weaponHolder
             WeaponHolderSlot weaponHolderSlot = weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>();
+
             // Set UI slot weapon from weaponSlot weapon
-            slot.weapon = weaponHolderSlot.weapon;
-            slot.UpdateSlot();
-            // Toggle Slot based on selected weapon
-            if (weaponHolder.selectedWeapon == i)
-                slot.Toggle(true);
-            else
-                slot.Toggle(false);
+            Weapon weapon = weaponHolderSlot.weapon;
+            // Check for weapon
+            if (weapon != null) {
+                slot.weapon = weapon;
+                slot.UpdateSlot();
+                // Toggle Slot based on selected weapon
+                if (weaponHolder.selectedWeapon == i)
+                    slot.Toggle(true);
+                else
+                    slot.Toggle(false);
+            }
         }
     }
 

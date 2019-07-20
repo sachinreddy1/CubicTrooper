@@ -8,9 +8,9 @@ public class WeaponHolderSlot : MonoBehaviour
     public bool isBought = false;
     // public GameObject buildEffect;
 
-    public Weapon weapon;    
+    public Weapon weapon;
 
-    void Start() {
+    void Awake() {
         SelectWeapon();
     }
 

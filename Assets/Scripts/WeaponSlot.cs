@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class WeaponSlot : MonoBehaviour
 {
-    public Weapon weapon;
-
     public Text weaponNumber;
     public Image weaponIcon;
 
     public Text ammoLeft;
 
     public Animator animator;
+    public Weapon weapon;
 
     public void Toggle(bool val) {
         animator.SetBool("isEnabled", val);

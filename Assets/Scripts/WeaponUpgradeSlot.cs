@@ -24,12 +24,13 @@ public class WeaponUpgradeSlot : MonoBehaviour
 
     void Update() {
         weapon = weaponHolderSlot.weapon;
+        if (weapon != null) {
+            weaponNumber.text = weapon.weaponNumber.ToString() + ".";
+            weaponIcon.sprite = weapon.weaponIcon;
 
-        weaponNumber.text = weapon.weaponNumber.ToString() + ".";
-        weaponIcon.sprite = weapon.weaponIcon;
-
-        upgradeCost.text = "$" + weapon.upgradeCost.ToString();
-        ammoCost.text = "$" + weapon.ammoCost.ToString();
+            upgradeCost.text = "$" + weapon.upgradeCost.ToString();
+            ammoCost.text = "$" + weapon.ammoCost.ToString();
+        }
     }
 
     public void BuyUpgradeWeapon() {
