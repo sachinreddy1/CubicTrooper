@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class WeaponUpgradeSlot : MonoBehaviour
 {
-    public Weapon weapon;
-    //
     public Text weaponNumber;
     public Image weaponIcon;
 
@@ -16,14 +14,19 @@ public class WeaponUpgradeSlot : MonoBehaviour
     public Text ammoCost;
 
     public WeaponHolderSlot weaponHolderSlot;
+    public Weapon weapon;
 
     // Start is called before the first frame update
     void Start()
     {
+        buttonText.text = "Buy";
+    }
+
+    void Update() {
+        weapon = weaponHolderSlot.weapon;
+
         weaponNumber.text = weapon.weaponNumber.ToString() + ".";
         weaponIcon.sprite = weapon.weaponIcon;
-
-        buttonText.text = "Buy";
 
         upgradeCost.text = "$" + weapon.upgradeCost.ToString();
         ammoCost.text = "$" + weapon.ammoCost.ToString();
