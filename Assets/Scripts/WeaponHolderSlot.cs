@@ -29,7 +29,7 @@ public class WeaponHolderSlot : MonoBehaviour
 
         upgradeLevel = 0;
         SelectWeapon();
-        
+
         Debug.Log("Weapon bought!");
     }
 

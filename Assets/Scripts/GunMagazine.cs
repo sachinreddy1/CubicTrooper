@@ -80,14 +80,15 @@ public class GunMagazine : MonoBehaviour
     void UpdateUI()
     {
         DisableAmmo();
-        if (weaponHolder.currentWeapon != null) {
-            for (int i = 0; i < weaponHolder.currentWeapon.magCapacity; i++)
-            {
-                if (i + 1 <= weaponHolder.currentWeapon.bullets)
-                    transform.GetChild(i).gameObject.SetActive(true);
-                else
-                    transform.GetChild(i).gameObject.SetActive(false);
-            }
+        if (weaponHolder.currentWeapon == null)
+            return;
+
+        for (int i = 0; i < weaponHolder.currentWeapon.magCapacity; i++)
+        {
+            if (i + 1 <= weaponHolder.currentWeapon.bullets)
+                transform.GetChild(i).gameObject.SetActive(true);
+            else
+                transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 

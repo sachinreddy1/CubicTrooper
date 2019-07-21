@@ -25,27 +25,29 @@ public class weaponSwitching : MonoBehaviour
     {
         if (GameManager.gameEnded) 
             return;
-        
+            
         SelectWeapon();
 
+        if (!canShoot || currentWeapon == null) 
+            return;
+
         // Left click pressed (Shoot)
-        if (canShoot && currentWeapon != null) {
-            if (currentWeapon.fireRate <= 0f) {
-                if (Input.GetMouseButtonDown(0)) {
-                    if (!currentWeapon.isReloading)
-                        currentWeapon.Shoot();
-                }
-            }
-            else {
-                if (Input.GetMouseButtonDown(0)) {
-                    if (!currentWeapon.isReloading)
-                        currentWeapon.InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
-                }
-                else if (Input.GetMouseButtonUp(0)) {
-                        currentWeapon.CancelInvoke("Shoot");
-                }
+        if (currentWeapon.fireRate <= 0f) {
+            if (Input.GetMouseButtonDown(0)) {
+                if (!currentWeapon.isReloading)
+                    currentWeapon.Shoot();
             }
         }
+        else {
+            if (Input.GetMouseButtonDown(0)) {
+                if (!currentWeapon.isReloading)
+                    currentWeapon.InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
+            }
+            else if (Input.GetMouseButtonUp(0)) {
+                    currentWeapon.CancelInvoke("Shoot");
+            }
+        }
+        
 
         // Right click pressed (Reload)
         if (Input.GetMouseButtonDown(1)) {
@@ -66,10 +68,13 @@ public class weaponSwitching : MonoBehaviour
         {
             if (i == selectedWeapon) {
                 weaponHolderSlot.gameObject.SetActive(true);
-                // Check if weaponSlot is bought
                 WeaponHolderSlot weaponHolderSlot_ = weaponHolderSlot.GetComponent<WeaponHolderSlot>();
-                if (weaponHolderSlot_.isBought)
-                    currentWeapon = weaponHolderSlot_.weapon;
+
+                // Check if weaponSlot is bought
+                if (!weaponHolderSlot_.isBought)
+                    return;
+
+                currentWeapon = weaponHolderSlot_.weapon;
             }
             else
                 weaponHolderSlot.gameObject.SetActive(false);
