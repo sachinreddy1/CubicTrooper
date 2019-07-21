@@ -6,19 +6,18 @@ public class WeaponHolderSlot : MonoBehaviour
 {
     public int upgradeLevel = 0;
     public bool isBought = false;
-    // public GameObject buildEffect;
+    //
+    private BuildManager buildManager;
+    
 
     public Weapon weapon;
 
     void Awake() {
         SelectWeapon();
+        buildManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BuildManager>();
     }
 
     public bool BuyWeapon () {
-        // --------- Need to be Added to BuildManager --------- //
-        GameObject weaponHolder_ = GameObject.FindGameObjectWithTag("weaponController");
-        weaponSwitching weaponHolder = weaponHolder_.GetComponent<weaponSwitching>();
-
         if (PlayerStats.Money < weapon.upgradeCost)
         {
             Debug.Log("Not enough money to upgrade that!");
@@ -28,19 +27,21 @@ public class WeaponHolderSlot : MonoBehaviour
         PlayerStats.Money -= weapon.upgradeCost;
         isBought = true;
 
-        // --------- Need to be Added to BuildManager --------- //
-        // GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        // Destroy(effect, 5f);
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, buildManager.player.position, buildManager.player.rotation);
+        Destroy(effect, 5f);
 
         upgradeLevel = 0;
         SelectWeapon();
-        weaponHolder.SelectWeapon();
+        buildManager.weaponHolder.SelectWeapon();
 
         if (GunMagazine.instance.OnWeaponUsedCallback != null)
             GunMagazine.instance.OnWeaponUsedCallback.Invoke();
 
         if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
             WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
+
+        if (Shop.instance.OnShopUsedCallback != null)
+            Shop.instance.OnShopUsedCallback.Invoke();
 
         Debug.Log("Weapon bought!");
         return true;
@@ -71,9 +72,11 @@ public class WeaponHolderSlot : MonoBehaviour
 
         SelectWeapon();
 
-        // --------- Need to be Added to BuildManager --------- //
-        // GameObject effect = (GameObject)Instantiate(buildManager.upgradeEffect, GetBuildPosition(), Quaternion.identity);
-        // Destroy(effect, 5f);
+        if (Shop.instance.OnShopUsedCallback != null)
+            Shop.instance.OnShopUsedCallback.Invoke();
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, buildManager.player.position, buildManager.player.rotation);
+        Destroy(effect, 5f);
 
         Debug.Log("Weapon upgraded!");
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public float range = 5f;
     public GameObject shopUI;
     //
     private Transform player;
@@ -57,9 +58,12 @@ public class Shop : MonoBehaviour
 
     void ShowUI() {
         Vector3 dir = player.position - transform.position;
-        if (Vector3.Distance(transform.position, player.position) <= 4f) {
+        if (Vector3.Distance(transform.position, player.position) <= range) {
             weaponHolder.canShoot = false;
             shopUIAnimator.SetBool("inRange", true);
+
+            if (Shop.instance.OnShopUsedCallback != null)
+                Shop.instance.OnShopUsedCallback.Invoke();
         }
         else {
             weaponHolder.canShoot = true;
