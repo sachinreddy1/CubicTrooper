@@ -36,8 +36,8 @@ public class WeaponUpgradeSlot : MonoBehaviour
 
     public void BuyUpgradeWeapon() {
         if (!weaponHolderSlot.isBought) {
-            weaponHolderSlot.BuyWeapon();
-            buttonText.text = "Upgrade";
+            if (weaponHolderSlot.BuyWeapon())
+                buttonText.text = "Upgrade";
         }
         else {
             weaponHolderSlot.UpgradeWeapon();

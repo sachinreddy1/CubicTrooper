@@ -14,11 +14,11 @@ public class WeaponHolderSlot : MonoBehaviour
         SelectWeapon();
     }
 
-    public void BuyWeapon () {
+    public bool BuyWeapon () {
         if (PlayerStats.Money < weapon.upgradeCost)
         {
             Debug.Log("Not enough money to upgrade that!");
-            return;
+            return false;
         }
 
         PlayerStats.Money -= weapon.upgradeCost;
@@ -31,6 +31,7 @@ public class WeaponHolderSlot : MonoBehaviour
         SelectWeapon();
 
         Debug.Log("Weapon bought!");
+        return true;
     }
 
     public void SelectWeapon() {

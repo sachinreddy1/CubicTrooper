@@ -61,9 +61,13 @@ public class GunMagazine : MonoBehaviour
     }
 
     public void StopReloading() {
+        if (weaponHolder.currentWeapon == null)
+            return;
+            
         reloadTimer.gameObject.SetActive(false);
         if (reloadCoroutine != null)
             StopCoroutine(reloadCoroutine);
+
         weaponHolder.currentWeapon.isReloading = false;
     }
 

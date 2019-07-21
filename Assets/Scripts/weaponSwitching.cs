@@ -17,7 +17,8 @@ public class weaponSwitching : MonoBehaviour
     void Start()
     {
         gunMagazine = GunMagazine.instance;
-        
+        // Need a better way to update this.
+        InvokeRepeating("SelectWeapon", 0.0f, 0.25f);
         rb = player.GetComponent<Rigidbody2D>();
     }
 
@@ -26,8 +27,6 @@ public class weaponSwitching : MonoBehaviour
         if (GameManager.gameEnded) 
             return;
             
-        SelectWeapon();
-
         if (!canShoot || currentWeapon == null) 
             return;
 
@@ -66,18 +65,16 @@ public class weaponSwitching : MonoBehaviour
         int i = 0;
         foreach (Transform weaponHolderSlot in transform)
         {
+            weaponHolderSlot.gameObject.SetActive(false);
             if (i == selectedWeapon) {
-                weaponHolderSlot.gameObject.SetActive(true);
                 WeaponHolderSlot weaponHolderSlot_ = weaponHolderSlot.GetComponent<WeaponHolderSlot>();
-
+                
                 // Check if weaponSlot is bought
-                if (!weaponHolderSlot_.isBought)
-                    return;
-
-                currentWeapon = weaponHolderSlot_.weapon;
-            }
-            else
-                weaponHolderSlot.gameObject.SetActive(false);
+                if (weaponHolderSlot_.isBought) {
+                    weaponHolderSlot.gameObject.SetActive(true);
+                    currentWeapon = weaponHolderSlot_.weapon;
+                }
+            }                
             i++;    
         }
     }
