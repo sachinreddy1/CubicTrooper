@@ -39,6 +39,9 @@ public class WeaponHolderSlot : MonoBehaviour
         if (GunMagazine.instance.OnWeaponUsedCallback != null)
             GunMagazine.instance.OnWeaponUsedCallback.Invoke();
 
+        if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
+            WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
+
         Debug.Log("Weapon bought!");
         return true;
     }

@@ -18,7 +18,6 @@ public class WeaponSlot : MonoBehaviour
     }
 
     public void UpdateSlot() {
-        // weaponNumber.text = weapon.weaponNumber.ToString();
         weaponIcon.sprite = weapon.weaponIcon;
         ammoLeft.text = weapon.remainingBullets.ToString();
     }

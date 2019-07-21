@@ -22,18 +22,18 @@ public class WeaponUpgradeSlot : MonoBehaviour
         buttonText.text = "Buy";
     }
 
-    void Update() {
-        // Called: When Weapon upgrades, start
+    public void UpdateSlot() {
         weapon = weaponHolderSlot.weapon;
         if (weapon == null)
             return;
-
-        weaponNumber.text = weapon.weaponNumber.ToString() + ".";
+        
         weaponIcon.sprite = weapon.weaponIcon;
 
         upgradeCost.text = "$" + weapon.upgradeCost.ToString();
         ammoCost.text = "$" + weapon.ammoCost.ToString();
     }
+
+    // ---------------------------------------------------------- //
 
     public void BuyUpgradeWeapon() {
         if (!weaponHolderSlot.isBought) {

@@ -67,6 +67,9 @@ public class Weapon : MonoBehaviour
         isReloading = false;
         if (gunMagazine.OnWeaponUsedCallback != null)
             gunMagazine.OnWeaponUsedCallback.Invoke();
+
+        if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
+            WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
     } 
 
 }

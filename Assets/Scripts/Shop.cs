@@ -10,11 +10,34 @@ public class Shop : MonoBehaviour
     private Transform weaponTransform;
     private weaponSwitching weaponHolder;
     private Animator shopUIAnimator;
+    //
+    public Transform contentTransform;
+
+    #region Singleton
+
+    public static Shop instance;
+
+    void Awake () {
+        if (instance != null)
+        {
+            Debug.LogWarning("Multiple Shop instances.");
+            return;
+        }
+        
+        instance = this;
+    }
+
+    #endregion
+
+    public delegate void OnShopUsed();
+    public OnShopUsed OnShopUsedCallback;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        OnShopUsedCallback += UpdateUI;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         GameObject weaponHolder_ = GameObject.FindGameObjectWithTag("weaponController");
@@ -42,6 +65,23 @@ public class Shop : MonoBehaviour
             weaponHolder.canShoot = true;
             shopUIAnimator.SetBool("inRange", false);
         }
-    }    
+    }
+
+    // ---------------------------------------------------------- //
+
+    void UpdateUI () {
+        // Set weapon to active or disabled based on weapons in inventory
+        for (int i = 0; i < weaponHolder.gameObject.transform.childCount; i++)
+        {
+            // Get the UI slot
+            WeaponUpgradeSlot upgradeSlot = contentTransform.GetChild(i).gameObject.GetComponent<WeaponUpgradeSlot>();
+            // Get slot from weaponHolder
+            WeaponHolderSlot weaponHolderSlot = weaponTransform.GetChild(i).GetComponent<WeaponHolderSlot>();
+
+            upgradeSlot.weaponHolderSlot = weaponHolderSlot;
+            upgradeSlot.weaponNumber.text = (i+1).ToString();
+            upgradeSlot.UpdateSlot();
+        }
+    }
 
 }

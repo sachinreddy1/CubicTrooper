@@ -18,12 +18,34 @@ public class WeaponUI : MonoBehaviour
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
+
+     #region Singleton
+
+    public static WeaponUI instance;
+
+    void Awake () {
+        if (instance != null)
+        {
+            Debug.LogWarning("Multiple WeaponUI instances.");
+            return;
+        }
+        
+        instance = this;
+    }
+
+    #endregion
+
+    public delegate void OnWeaponUIUsed();
+    public OnWeaponUIUsed OnWeaponUIUsedCallback;
     
     // Start is called before the first frame update
     void Start()
     {
+        OnWeaponUIUsedCallback += UpdateUI;
         DisableUI();
-        UpdateUI();
+
+        if (OnWeaponUIUsedCallback != null)
+            OnWeaponUIUsedCallback.Invoke();
     }
 
     void DisableUI() {
@@ -42,11 +64,11 @@ public class WeaponUI : MonoBehaviour
                     int numberPressed = i;
                     weaponHolder.selectedWeapon = numberPressed;
                     weaponHolder.SelectWeapon();
+                    
+                    if (OnWeaponUIUsedCallback != null)
+                        OnWeaponUIUsedCallback.Invoke();
             }
         }
-
-        // Needs to be moved.
-        UpdateUI();
 
         if (previousSelectedWeapon != weaponHolder.selectedWeapon) {
             GunMagazine.instance.StopReloading();
