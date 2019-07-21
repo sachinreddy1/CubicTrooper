@@ -1,10 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponUI : MonoBehaviour
 {
     public weaponSwitching weaponHolder;
+
+    private KeyCode[] keyCodes = {
+         KeyCode.Alpha1,
+         KeyCode.Alpha2,
+         KeyCode.Alpha3,
+         KeyCode.Alpha4,
+         KeyCode.Alpha5,
+         KeyCode.Alpha6,
+         KeyCode.Alpha7,
+         KeyCode.Alpha8,
+         KeyCode.Alpha9,
+     };
     
     // Start is called before the first frame update
     void Start()
@@ -24,17 +37,12 @@ public class WeaponUI : MonoBehaviour
     {
         int previousSelectedWeapon = weaponHolder.selectedWeapon;
 
-        if (Input.GetKeyDown("1")){
-            weaponHolder.selectedWeapon = 0;
-            weaponHolder.SelectWeapon();
-        }
-        if (Input.GetKeyDown("2")){
-            weaponHolder.selectedWeapon = 1;
-            weaponHolder.SelectWeapon();
-        }
-        if (Input.GetKeyDown("3")){
-            weaponHolder.selectedWeapon = 2;
-            weaponHolder.SelectWeapon();
+        for (int i = 0; i < keyCodes.Length; i++) {
+            if (Input.GetKeyDown(keyCodes[i])) {
+                    int numberPressed = i;
+                    weaponHolder.selectedWeapon = numberPressed;
+                    weaponHolder.SelectWeapon();
+            }
         }
 
         // Needs to be moved.
@@ -47,16 +55,20 @@ public class WeaponUI : MonoBehaviour
         }
     }
 
-    void UpdateUI () {
+    void ToggleWeaponSlots() {
         // Setting weapon Icon UI based on weapons in weaponHolder and if item is bought
         for (int i = 0; i < transform.childCount; i++) {
-            if (weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>().isBought) {
+            WeaponHolderSlot weaponHolderSlot = weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>();
+            if (weaponHolderSlot.isBought) {
                 transform.GetChild(i).gameObject.SetActive(true);
             }
             else
                 transform.GetChild(i).gameObject.SetActive(false);
         }
+    }
 
+    void UpdateWeaponSlots() {
+        int idx = 0;
         // Set weapon to active or disabled based on weapons in inventory
         for (int i = 0; i < weaponHolder.gameObject.transform.childCount; i++)
         {
@@ -64,20 +76,30 @@ public class WeaponUI : MonoBehaviour
             WeaponSlot slot = transform.GetChild(i).gameObject.GetComponent<WeaponSlot>();
             // Get slot from weaponHolder
             WeaponHolderSlot weaponHolderSlot = weaponHolder.GetComponent<Transform>().GetChild(i).GetComponent<WeaponHolderSlot>();
-
             // Set UI slot weapon from weaponSlot weapon
             Weapon weapon = weaponHolderSlot.weapon;
-            // Check for weapon
-            if (weapon != null) {
-                slot.weapon = weapon;
-                slot.UpdateSlot();
-                // Toggle Slot based on selected weapon
-                if (weaponHolder.selectedWeapon == i)
-                    slot.Toggle(true);
-                else
-                    slot.Toggle(false);
+
+            if (weaponHolderSlot.isBought) {
+                // Check for weapon
+                if (weapon != null) {
+                    slot.weapon = weapon;
+                    slot.weaponNumber.text = (idx+1).ToString();
+                    slot.UpdateSlot();
+
+                    // Toggle Slot based on selected weapon
+                    if (weaponHolder.selectedWeapon == idx)
+                        slot.Toggle(true);
+                    else
+                        slot.Toggle(false);
+                }
+                idx++;
             }
         }
+    }
+
+    void UpdateUI () {
+        ToggleWeaponSlots();
+        UpdateWeaponSlots();
     }
 
 }

@@ -23,6 +23,7 @@ public class WeaponUpgradeSlot : MonoBehaviour
     }
 
     void Update() {
+        // Called: When Weapon upgrades, start
         weapon = weaponHolderSlot.weapon;
         if (weapon == null)
             return;

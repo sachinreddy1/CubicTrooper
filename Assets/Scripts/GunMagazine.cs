@@ -61,6 +61,7 @@ public class GunMagazine : MonoBehaviour
     }
 
     public void StopReloading() {
+        // Check if weaponHolder has a weapon
         if (weaponHolder.currentWeapon == null)
             return;
             

@@ -17,8 +17,7 @@ public class weaponSwitching : MonoBehaviour
     void Start()
     {
         gunMagazine = GunMagazine.instance;
-        // Need a better way to update this.
-        InvokeRepeating("SelectWeapon", 0.0f, 0.25f);
+        SelectWeapon();
         rb = player.GetComponent<Rigidbody2D>();
     }
 
@@ -42,11 +41,10 @@ public class weaponSwitching : MonoBehaviour
                 if (!currentWeapon.isReloading)
                     currentWeapon.InvokeRepeating("Shoot", 0f, 1f/currentWeapon.fireRate);
             }
-            else if (Input.GetMouseButtonUp(0)) {
+            if (Input.GetMouseButtonUp(0)) {
                     currentWeapon.CancelInvoke("Shoot");
             }
         }
-        
 
         // Right click pressed (Reload)
         if (Input.GetMouseButtonDown(1)) {
@@ -66,16 +64,15 @@ public class weaponSwitching : MonoBehaviour
         foreach (Transform weaponHolderSlot in transform)
         {
             weaponHolderSlot.gameObject.SetActive(false);
-            if (i == selectedWeapon) {
-                WeaponHolderSlot weaponHolderSlot_ = weaponHolderSlot.GetComponent<WeaponHolderSlot>();
-                
-                // Check if weaponSlot is bought
-                if (weaponHolderSlot_.isBought) {
+            WeaponHolderSlot weaponHolderSlot_ = weaponHolderSlot.GetComponent<WeaponHolderSlot>();
+
+            if (weaponHolderSlot_.isBought) {
+                if (i == selectedWeapon) {
                     weaponHolderSlot.gameObject.SetActive(true);
                     currentWeapon = weaponHolderSlot_.weapon;
                 }
-            }                
-            i++;    
+                i++;
+            }
         }
     }
 

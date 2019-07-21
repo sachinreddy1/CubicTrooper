@@ -15,6 +15,10 @@ public class WeaponHolderSlot : MonoBehaviour
     }
 
     public bool BuyWeapon () {
+        // --------- Need to be Added to BuildManager --------- //
+        GameObject weaponHolder_ = GameObject.FindGameObjectWithTag("weaponController");
+        weaponSwitching weaponHolder = weaponHolder_.GetComponent<weaponSwitching>();
+
         if (PlayerStats.Money < weapon.upgradeCost)
         {
             Debug.Log("Not enough money to upgrade that!");
@@ -24,11 +28,16 @@ public class WeaponHolderSlot : MonoBehaviour
         PlayerStats.Money -= weapon.upgradeCost;
         isBought = true;
 
+        // --------- Need to be Added to BuildManager --------- //
         // GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         // Destroy(effect, 5f);
 
         upgradeLevel = 0;
         SelectWeapon();
+        weaponHolder.SelectWeapon();
+
+        if (GunMagazine.instance.OnWeaponUsedCallback != null)
+            GunMagazine.instance.OnWeaponUsedCallback.Invoke();
 
         Debug.Log("Weapon bought!");
         return true;
@@ -59,6 +68,7 @@ public class WeaponHolderSlot : MonoBehaviour
 
         SelectWeapon();
 
+        // --------- Need to be Added to BuildManager --------- //
         // GameObject effect = (GameObject)Instantiate(buildManager.upgradeEffect, GetBuildPosition(), Quaternion.identity);
         // Destroy(effect, 5f);
 
