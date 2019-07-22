@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
-    public int weaponNumber;
     public Sprite weaponIcon;
     
     [Header("General")]
