@@ -14,7 +14,7 @@ public class WeaponUpgradeSlot : MonoBehaviour
     public Text ammoCost;
 
     public WeaponHolderSlot weaponHolderSlot;
-    public Weapon weapon;
+    private Weapon weapon;
 
     // Start is called before the first frame update
     void Start()

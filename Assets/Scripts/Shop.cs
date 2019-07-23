@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Shop : MonoBehaviour
 {
@@ -48,6 +49,9 @@ public class Shop : MonoBehaviour
         weaponHolder = weaponHolder_.GetComponent<weaponSwitching>();
         
         shopUIAnimator = shopUI.GetComponent<Animator>();
+
+        if (OnShopUsedCallback != null)
+            OnShopUsedCallback.Invoke();
     }
 
     // Update is called once per frame
@@ -59,14 +63,13 @@ public class Shop : MonoBehaviour
     void ShowUI() {
         Vector3 dir = player.position - transform.position;
         if (Vector3.Distance(transform.position, player.position) <= range) {
-            weaponHolder.canShoot = false;
             shopUIAnimator.SetBool("inRange", true);
 
-            if (Shop.instance.OnShopUsedCallback != null)
-                Shop.instance.OnShopUsedCallback.Invoke();
+            if (OnShopUsedCallback != null)
+                OnShopUsedCallback.Invoke();
         }
         else {
-            weaponHolder.canShoot = true;
+            // weaponHolder.canShoot = true;
             shopUIAnimator.SetBool("inRange", false);
         }
     }
