@@ -72,4 +72,9 @@ public class WaveSpawner : MonoBehaviour
         Instantiate(enemy, spawnPoints[point].position, spawnPoints[point].rotation);
     }
 
+    public void SkipWaveTime() {
+        countDown = 0f;
+        waveCountdownText.text = string.Format("{0:00.00}", countDown);
+    }
+
 }
