@@ -16,10 +16,13 @@ public class WeaponUpgradeSlot : MonoBehaviour
     public WeaponHolderSlot weaponHolderSlot;
     private Weapon weapon;
 
+    private BuildManager buildManager;
+
     // Start is called before the first frame update
     void Start()
     {
         buttonText.text = "Buy";
+        buildManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BuildManager>();
     }
 
     public void UpdateSlot() {
@@ -51,7 +54,8 @@ public class WeaponUpgradeSlot : MonoBehaviour
     public void AddAmmo() {
         Weapon weapon = weaponHolderSlot.weapon.GetComponent<Weapon>();
         weapon.remainingBullets += 10;
-        PlayerStats.Money -= weapon.ammoCost;
+
+        buildManager.SpendMoney(weapon.ammoCost);
 
         if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
             WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();

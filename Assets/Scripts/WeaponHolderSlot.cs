@@ -24,7 +24,7 @@ public class WeaponHolderSlot : MonoBehaviour
             return false;
         }
 
-        PlayerStats.Money -= weapon.upgradeCost;
+        buildManager.SpendMoney(weapon.upgradeCost);
         isBought = true;
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, buildManager.player.position, buildManager.player.rotation);
@@ -68,7 +68,7 @@ public class WeaponHolderSlot : MonoBehaviour
             return;
         }
         upgradeLevel++;
-        PlayerStats.Money -= weapon.upgradeCost;
+        buildManager.SpendMoney(weapon.upgradeCost);
 
         SelectWeapon();
 
