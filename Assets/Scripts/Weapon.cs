@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Weapon : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class Weapon : MonoBehaviour
     }
 
     public void Shoot() {
+        // Check if over UI element
+        if(EventSystem.current.IsPointerOverGameObject()){
+            return;
+        }
+
         if (bullets > 0) {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             weaponHolder.Recoil();

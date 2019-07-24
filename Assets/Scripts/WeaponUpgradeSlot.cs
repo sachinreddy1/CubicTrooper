@@ -43,12 +43,18 @@ public class WeaponUpgradeSlot : MonoBehaviour
         else {
             weaponHolderSlot.UpgradeWeapon();
         }
+
+        if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
+            WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
     }
 
     public void AddAmmo() {
         Weapon weapon = weaponHolderSlot.weapon.GetComponent<Weapon>();
         weapon.remainingBullets += 10;
         PlayerStats.Money -= weapon.ammoCost;
+
+        if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
+            WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
     }
 
 

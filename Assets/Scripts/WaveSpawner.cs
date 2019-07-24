@@ -16,6 +16,7 @@ public class WaveSpawner : MonoBehaviour
     public static Transform[] spawnPoints;
     //
     public GameManager gameManager;
+    public Animator waveUIAnimator;
 
     void Awake() 
     {
@@ -28,8 +29,10 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
-        if (EnemiesAlive > 0)
+        if (EnemiesAlive > 0) {
+            waveUIAnimator.SetBool("isActive", false);
             return;
+        }
 
         if (waveNumber == waves.Length) {
             Debug.Log("Level Complete.");
@@ -42,6 +45,8 @@ public class WaveSpawner : MonoBehaviour
             countDown = timeBetweenWaves;
             return;
         }
+
+        waveUIAnimator.SetBool("isActive", true);
 
         countDown -= Time.deltaTime;
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
