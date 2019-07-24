@@ -14,16 +14,21 @@ public class BuildManager : MonoBehaviour
     public Animator spendMoneyAnimator;
     public Text spendMoney;
     public Text moneyText;
+    //
+    
+    void Start () {
+        moneyText.text = "$" + PlayerStats.Money.ToString();
+    }
 
     public void SpendMoney(int moneySpent) {
         spendMoney.text = "-$" + moneySpent.ToString();
 
-        spendMoneyAnimator.SetBool("IsActive", true);
-        StartCoroutine(TimeWait());
-        StartCoroutine(SpendMoneyAnimateText(moneySpent));
+        StartCoroutine(DecreaseMoneyAnimateText(moneySpent));
+
+        StartCoroutine(SpendMoneyAnimation());
     }
 
-    IEnumerator SpendMoneyAnimateText(int moneySpent) {
+    IEnumerator DecreaseMoneyAnimateText(int moneySpent) {
         moneyText.text = "$" + PlayerStats.Money.ToString();
         int finalAmount = PlayerStats.Money - moneySpent;
 
@@ -36,8 +41,9 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    IEnumerator TimeWait()
+    IEnumerator SpendMoneyAnimation()
     {
+        spendMoneyAnimator.SetBool("IsActive", true);
         yield return new WaitForSeconds(1.25f);
         spendMoneyAnimator.SetBool("IsActive", false);
     }

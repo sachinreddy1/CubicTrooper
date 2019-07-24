@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
     public int damage = 10;
     public GameObject impactEffect;
+    public float explosionRadius = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +19,38 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo) {
         
-        Enemy enemy = hitInfo.GetComponent<Enemy>();
-        if(enemy != null) 
-        {
-            enemy.TakeDamage(damage);
-        }
+        Transform enemy = hitInfo.transform;
+        HitTarget(enemy);
+    }
 
-        //Instantiate(impactEffect, transform.position, transform.rotation);
+    void HitTarget(Transform enemy) {
+        GameObject effectInstance = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(effectInstance, 5f);
+
+        if (explosionRadius > 0f) {
+            Explode();
+        } else {
+            Damage(enemy);
+        }
         Destroy(gameObject);
+    }
+
+    void Explode() {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider collider in colliders)
+        {
+            if(collider.tag == "Enemy") {
+                Damage(collider.transform);
+            }
+        }
+    }
+
+    void Damage(Transform enemy) {
+        Enemy e = enemy.GetComponent<Enemy>();
+
+        if (e != null) {
+            e.TakeDamage(damage);
+        }
     }
 
 }
