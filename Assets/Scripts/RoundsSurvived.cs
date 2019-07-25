@@ -7,6 +7,10 @@ public class RoundsSurvived : MonoBehaviour
 {
     public Text roundsText;
 
+    void Start() {
+        roundsText.text = "0";
+    }
+
     void OnEnable () {
         StartCoroutine(AnimateText());
     }

@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
     public Text waveCountdownText;
-    private float countDown = 2f;
+    private float countDown = 10f;
     private int waveNumber = 0;
     //
     public GameObject spawns;
@@ -34,20 +34,22 @@ public class WaveSpawner : MonoBehaviour
             return;
         }
 
-        if (waveNumber == waves.Length) {
-            Debug.Log("Level Complete.");
-            gameManager.WinLevel();
-            this.enabled = false;
-        }
-
         if (countDown <= 0f) {
+            waveUIAnimator.SetBool("isActive", false);
             StartCoroutine(SpawnWave());
             countDown = timeBetweenWaves;
             return;
         }
 
+        if (waveNumber == waves.Length) {
+            Debug.Log("Level Complete.");
+            waveUIAnimator.SetBool("isActive", false);
+            gameManager.WinLevel();
+            this.enabled = false;
+            return;
+        } 
+    
         waveUIAnimator.SetBool("isActive", true);
-
         countDown -= Time.deltaTime;
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
         waveCountdownText.text = string.Format("{0:00.00}", countDown);
