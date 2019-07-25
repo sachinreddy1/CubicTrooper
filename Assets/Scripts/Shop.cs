@@ -63,15 +63,24 @@ public class Shop : MonoBehaviour
     void ShowUI() {
         Vector3 dir = player.position - transform.position;
         if (Vector3.Distance(transform.position, player.position) <= range) {
+            shopUI.SetActive(true);
             shopUIAnimator.SetBool("inRange", true);
 
             if (OnShopUsedCallback != null)
                 OnShopUsedCallback.Invoke();
         }
         else {
-            // weaponHolder.canShoot = true;
             shopUIAnimator.SetBool("inRange", false);
+            StartCoroutine(DisableAfterTime(0.2f));
         }
+    }
+
+    // ---------------------------------------------------------- //
+
+    IEnumerator DisableAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        shopUI.SetActive(false);
     }
 
     // ---------------------------------------------------------- //

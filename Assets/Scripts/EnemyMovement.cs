@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         transform.Translate(dir.normalized * enemy.speed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.6f) {
+        if (Vector3.Distance(transform.position, target.position) <= 0.8f) {
             TakeDamage();
         }
 
