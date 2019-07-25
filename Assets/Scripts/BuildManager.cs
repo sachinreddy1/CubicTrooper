@@ -15,30 +15,37 @@ public class BuildManager : MonoBehaviour
     public Text spendMoney;
     public Text moneyText;
     //
+    private int moneyToSpend = 0;
+    private int moneyToSpend_ = 0;
     
     void Start () {
         moneyText.text = "$" + PlayerStats.Money.ToString();
     }
 
+    // ---------------------------------------------------------- //
+
     public void SpendMoney(int moneySpent) {
-        spendMoney.text = "-$" + moneySpent.ToString();
+        moneyToSpend += moneySpent;
+        moneyToSpend_ += moneySpent;
+        spendMoney.text = "-$" + moneyToSpend_.ToString();
 
         StartCoroutine(DecreaseMoneyAnimateText(moneySpent));
-
         StartCoroutine(SpendMoneyAnimation());
     }
 
-    IEnumerator DecreaseMoneyAnimateText(int moneySpent) {
-        moneyText.text = "$" + PlayerStats.Money.ToString();
-        int finalAmount = PlayerStats.Money - moneySpent;
+    // ---------------------------------------------------------- //
 
+    IEnumerator DecreaseMoneyAnimateText(int moneySpent) {
         yield return new WaitForSeconds(.25f);
 
-        while (finalAmount < PlayerStats.Money) {
+        while (0 < moneyToSpend) {
             PlayerStats.Money--;
+            moneyToSpend--;
+
             moneyText.text = "$" + PlayerStats.Money.ToString();
             yield return new WaitForSeconds(.000001f);
         }
+        moneyToSpend_ = 0;
     }
 
     IEnumerator SpendMoneyAnimation()

@@ -53,9 +53,10 @@ public class WeaponUpgradeSlot : MonoBehaviour
 
     public void AddAmmo() {
         Weapon weapon = weaponHolderSlot.weapon.GetComponent<Weapon>();
-        weapon.remainingBullets += 10;
 
         buildManager.SpendMoney(weapon.ammoCost);
+
+        weapon.remainingBullets += 10;
 
         if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
             WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
