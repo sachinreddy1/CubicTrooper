@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class weaponSwitching : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class weaponSwitching : MonoBehaviour
             
         if (!canShoot || currentWeapon == null) 
             return;
+
+         if(EventSystem.current.IsPointerOverGameObject()){
+            return;
+        }
 
         // Left click pressed (Shoot)
         if (currentWeapon.fireRate <= 0f) {

@@ -47,10 +47,6 @@ public class Weapon : MonoBehaviour
     }
 
     public void Shoot() {
-        if(EventSystem.current.IsPointerOverGameObject()){
-            return;
-        }
-
         if (bullets > 0) {
             if (!shotgun)
                 Straight();

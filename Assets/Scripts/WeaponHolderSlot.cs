@@ -9,8 +9,9 @@ public class WeaponHolderSlot : MonoBehaviour
     //
     private BuildManager buildManager;
     
-
     public Weapon weapon;
+
+    public int MaxUpgradeLevel { get { return transform.childCount; } }
 
     void Awake() {
         SelectWeapon();

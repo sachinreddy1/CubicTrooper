@@ -9,6 +9,7 @@ public class WeaponUpgradeSlot : MonoBehaviour
     public Image weaponIcon;
 
     public Text buttonText;
+    public Button upgradeButton;
 
     public Text upgradeCost;
     public Text ammoCost;
@@ -31,9 +32,7 @@ public class WeaponUpgradeSlot : MonoBehaviour
             return;
         
         weaponIcon.sprite = weapon.weaponIcon;
-
-        upgradeCost.text = "$" + weapon.upgradeCost.ToString();
-        ammoCost.text = "$" + weapon.ammoCost.ToString();
+        UpdateButtons();
     }
 
     // ---------------------------------------------------------- //
@@ -49,6 +48,20 @@ public class WeaponUpgradeSlot : MonoBehaviour
 
         if (WeaponUI.instance.OnWeaponUIUsedCallback != null)
             WeaponUI.instance.OnWeaponUIUsedCallback.Invoke();
+    }
+
+    void UpdateButtons() {
+        if(weaponHolderSlot.upgradeLevel != weaponHolderSlot.MaxUpgradeLevel-1) {
+            upgradeCost.text = "$" + weapon.upgradeCost.ToString();
+            ammoCost.text = "$" + weapon.ammoCost.ToString();
+
+            upgradeButton.interactable = true;
+        }
+        else {
+            buttonText.text = "DONE";
+            upgradeCost.text = "";
+            upgradeButton.interactable = false;
+        }
     }
 
     public void AddAmmo() {
