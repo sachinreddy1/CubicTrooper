@@ -11,6 +11,8 @@ public class playerController : MonoBehaviour
     private Vector3 m_Velocity = Vector3.zero;
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
     private Rigidbody2D m_Rigidbody2D;
+    //
+    private float angle = 0f;
 
     private void Awake()
 	{
@@ -28,8 +30,11 @@ public class playerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (GameManager.gameEnded) 
+        if (GameManager.gameEnded) {
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, new Vector2(0f, 0f), ref m_Velocity, m_MovementSmoothing);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             return;
+        }
             
         Move();
     }
@@ -42,7 +47,7 @@ public class playerController : MonoBehaviour
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
         lookPos = lookPos - transform.position;        
-        float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 

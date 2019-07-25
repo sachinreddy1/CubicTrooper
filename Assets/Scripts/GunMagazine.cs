@@ -78,7 +78,9 @@ public class GunMagazine : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
             reloadTimer.value = reloadTimer.value - (Time.deltaTime/weaponHolder.currentWeapon.reloadTime);
         }
+        weaponHolder.SelectWeapon();
         weaponHolder.currentWeapon.Reload();
+            
         reloadTimer.gameObject.SetActive(false);
     }
 

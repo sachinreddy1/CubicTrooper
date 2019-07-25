@@ -18,6 +18,13 @@ public class WeaponUI : MonoBehaviour
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
+     //
+    public Color[] colors = {
+         new Color(85/255f, 85/255f, 85/255f, 255/255f),
+         new Color(66/255f, 144/255f, 185/255f, 255/255f),
+     };
+     public Color unBoughtColor = new Color(0f, 0f, 0f, 0f);
+
 
      #region Singleton
 
@@ -61,12 +68,12 @@ public class WeaponUI : MonoBehaviour
 
         for (int i = 0; i < keyCodes.Length; i++) {
             if (Input.GetKeyDown(keyCodes[i])) {
-                    int numberPressed = i;
-                    weaponHolder.selectedWeapon = numberPressed;
-                    weaponHolder.SelectWeapon();
-                    
-                    if (OnWeaponUIUsedCallback != null)
-                        OnWeaponUIUsedCallback.Invoke();
+                int numberPressed = i;
+                weaponHolder.selectedWeapon = numberPressed;
+                weaponHolder.SelectWeapon();
+                
+                if (OnWeaponUIUsedCallback != null)
+                    OnWeaponUIUsedCallback.Invoke();
             }
         }
 
@@ -106,6 +113,9 @@ public class WeaponUI : MonoBehaviour
                 if (weapon != null) {
                     slot.weapon = weapon;
                     slot.weaponNumber.text = (idx+1).ToString();
+
+                    slot.upgradeIcon.color = colors[weaponHolderSlot.upgradeLevel];
+
                     slot.UpdateSlot();
 
                     // Toggle Slot based on selected weapon
@@ -115,6 +125,9 @@ public class WeaponUI : MonoBehaviour
                         slot.Toggle(false);
                 }
                 idx++;
+            }
+            else {
+                slot.upgradeIcon.color = unBoughtColor;
             }
         }
     }

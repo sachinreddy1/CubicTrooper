@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
     public int killValue = 50;
     public GameObject deathEffect;
 
+    public GameObject spawnEffect;
+
+    private BuildManager buildManager;
+
+
     // [Header("Unity Stuff")]
     // public Image healthBar;
 
@@ -21,6 +26,11 @@ public class Enemy : MonoBehaviour
     void Start() {
         speed = startSpeed;
         health = startHealth;
+
+        buildManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BuildManager>();
+
+        GameObject effectInstance = (GameObject)Instantiate(spawnEffect, transform.position, transform.rotation);
+        Destroy(effectInstance, 5f);
     }
     
     public void TakeDamage(int damage){
@@ -37,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     void Die() {
         isDead = true;
-        PlayerStats.Money += killValue;
+        buildManager.CollectMoney(killValue);
 
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, transform.rotation);
         Destroy(effect, 5f);

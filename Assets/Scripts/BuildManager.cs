@@ -17,6 +17,9 @@ public class BuildManager : MonoBehaviour
     //
     private int moneyToSpend = 0;
     private int moneyToSpend_ = 0;
+    //
+    private int moneyToCollect = 0;
+    private int moneyToCollect_ = 0;
     
     void Start () {
         moneyText.text = "$" + PlayerStats.Money.ToString();
@@ -29,13 +32,22 @@ public class BuildManager : MonoBehaviour
         moneyToSpend_ += moneySpent;
         spendMoney.text = "-$" + moneyToSpend_.ToString();
 
-        StartCoroutine(DecreaseMoneyAnimateText(moneySpent));
+        StartCoroutine(DecreaseMoneyAnimateText());
+        StartCoroutine(SpendMoneyAnimation());
+    }
+
+    public void CollectMoney(int moneyCollect) {
+        moneyToCollect += moneyCollect;
+        moneyToCollect_ += moneyCollect;
+        spendMoney.text = "+$" + moneyToCollect_.ToString();
+
+        StartCoroutine(IncreaseMoneyAnimateText());
         StartCoroutine(SpendMoneyAnimation());
     }
 
     // ---------------------------------------------------------- //
 
-    IEnumerator DecreaseMoneyAnimateText(int moneySpent) {
+    IEnumerator DecreaseMoneyAnimateText() {
         yield return new WaitForSeconds(.25f);
 
         while (0 < moneyToSpend) {
@@ -54,5 +66,21 @@ public class BuildManager : MonoBehaviour
         yield return new WaitForSeconds(1.25f);
         spendMoneyAnimator.SetBool("IsActive", false);
     }
+
+    // ---------------------------------------------------------- //
+
+    IEnumerator IncreaseMoneyAnimateText() {
+        yield return new WaitForSeconds(.25f);
+
+        while (0 < moneyToCollect) {
+            PlayerStats.Money++;
+            moneyToCollect--;
+
+            moneyText.text = "$" + PlayerStats.Money.ToString();
+            yield return new WaitForSeconds(.000001f);
+        }
+        moneyToCollect_ = 0;
+    }
+
 
 }

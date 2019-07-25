@@ -7,6 +7,7 @@ public class WeaponSlot : MonoBehaviour
 {
     public Text weaponNumber;
     public Image weaponIcon;
+    public Image upgradeIcon;
 
     public Text ammoLeft;
 

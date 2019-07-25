@@ -17,7 +17,7 @@ public class WaveSpawner : MonoBehaviour
     //
     public GameManager gameManager;
     public Animator waveUIAnimator;
-
+    
     void Awake() 
     {
         spawnPoints = new Transform[spawns.transform.childCount];
@@ -62,8 +62,8 @@ public class WaveSpawner : MonoBehaviour
 
         for (int i = 0; i < wave.count; i++)
         {
-            SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f/ wave.rate);
+            SpawnEnemy(wave.enemy);
         }
         waveNumber++;
     }
@@ -71,6 +71,7 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         int point = Random.Range(0, spawnPoints.Length);
+
         Instantiate(enemy, spawnPoints[point].position, spawnPoints[point].rotation);
     }
 
