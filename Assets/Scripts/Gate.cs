@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Gate : MonoBehaviour
@@ -9,22 +10,24 @@ public class Gate : MonoBehaviour
     public GameObject GateUI;
     //
     private Transform player;
-    private Transform weaponTransform;
-    private weaponSwitching weaponHolder;
     private Animator shopUIAnimator;
+    //
+    public Animator gateAnimator;
+    //
+    private bool isOpen = false;
+    private BuildManager buildManager;
+    //
+    public int Cost = 1000;
+    public Text costText;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
-        GameObject weaponHolder_ = GameObject.FindGameObjectWithTag("weaponController");
-        // Needed for accessing the currentWeapons
-        weaponTransform = weaponHolder_.GetComponent<Transform>();
-        // Needed for activating/deactivating the Shooting
-        weaponHolder = weaponHolder_.GetComponent<weaponSwitching>();
-        
+        buildManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BuildManager>();
         shopUIAnimator = GateUI.GetComponent<Animator>();
+
+        costText.text = "$" + Cost.ToString();
     }
 
     // Update is called once per frame
@@ -35,7 +38,7 @@ public class Gate : MonoBehaviour
 
     void ShowUI() {
         Vector3 dir = player.position - transform.position;
-        if (Vector3.Distance(transform.position, player.position) <= range) {
+        if ((Vector3.Distance(transform.position, player.position) <= range) && !isOpen) {
             GateUI.SetActive(true);
             shopUIAnimator.SetBool("inRange", true);
         }
@@ -51,5 +54,11 @@ public class Gate : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         GateUI.SetActive(false);
+    }
+
+    public void OpenGate() {
+        isOpen = true;
+        gateAnimator.SetBool("isOpen", isOpen);
+        buildManager.SpendMoney(Cost);
     }
 }
