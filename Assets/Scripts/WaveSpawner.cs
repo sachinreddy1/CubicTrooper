@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour
 {
     public static int EnemiesAlive = 0;
+    public float rate = 1f;
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
     public Text waveCountdownText;
@@ -29,11 +30,12 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
+        // If any enemies alive, return
         if (EnemiesAlive > 0) {
             waveUIAnimator.SetBool("isActive", false);
             return;
         }
-
+        // If countdown @ 0, SpawnWave, return
         if (countDown <= 0f) {
             waveUIAnimator.SetBool("isActive", false);
             StartCoroutine(SpawnWave());
@@ -41,14 +43,15 @@ public class WaveSpawner : MonoBehaviour
             return;
         }
 
-        if (waveNumber == waves.Length) {
-            Debug.Log("Level Complete.");
-            waveUIAnimator.SetBool("isActive", false);
-            gameManager.WinLevel();
-            this.enabled = false;
-            return;
-        } 
-    
+        // If waveNumber = # of waves, win level (Should remove this)
+        // if (waveNumber == waves.Length) {
+        //     Debug.Log("Level Complete.");
+        //     waveUIAnimator.SetBool("isActive", false);
+        //     gameManager.EndGame();
+        //     this.enabled = false;
+        //     return;
+        // } 
+
         waveUIAnimator.SetBool("isActive", true);
         countDown -= Time.deltaTime;
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
@@ -56,22 +59,26 @@ public class WaveSpawner : MonoBehaviour
     }
 
     IEnumerator SpawnWave() {
-        PlayerStats.Rounds++;
-        Wave wave = waves[waveNumber];
-        EnemiesAlive = wave.count;
+        // Get the wave
+        int point = Random.Range(0, waves.Length);
+        Wave wave = waves[point];
 
-        for (int i = 0; i < wave.count; i++)
+        PlayerStats.Rounds++;
+        waveNumber++;
+
+        // Set Enemies alive to the number of enemies in the wave
+        EnemiesAlive = waveNumber * wave.countMultiplier;
+        // Spawn all enemies
+        for (int i = 0; i < waveNumber * wave.countMultiplier; i++)
         {
-            yield return new WaitForSeconds(1f/ wave.rate);
+            yield return new WaitForSeconds(rate);
             SpawnEnemy(wave.enemy);
         }
-        waveNumber++;
     }
 
     void SpawnEnemy(GameObject enemy)
     {
         int point = Random.Range(0, spawnPoints.Length);
-
         Instantiate(enemy, spawnPoints[point].position, spawnPoints[point].rotation);
     }
 

@@ -48,14 +48,12 @@ public class BuildManager : MonoBehaviour
     // ---------------------------------------------------------- //
 
     IEnumerator DecreaseMoneyAnimateText() {
-        yield return new WaitForSeconds(.25f);
-
         while (0 < moneyToSpend) {
             PlayerStats.Money--;
             moneyToSpend--;
 
             moneyText.text = "$" + PlayerStats.Money.ToString();
-            yield return new WaitForSeconds(.000001f);
+            yield return new WaitForSeconds(1/999999999f);
         }
         moneyToSpend_ = 0;
     }
@@ -70,14 +68,12 @@ public class BuildManager : MonoBehaviour
     // ---------------------------------------------------------- //
 
     IEnumerator IncreaseMoneyAnimateText() {
-        yield return new WaitForSeconds(.25f);
-
         while (0 < moneyToCollect) {
             PlayerStats.Money++;
             moneyToCollect--;
 
             moneyText.text = "$" + PlayerStats.Money.ToString();
-            yield return new WaitForSeconds(.000001f);
+            yield return new WaitForSeconds(1/999999999f);
         }
         moneyToCollect_ = 0;
     }
