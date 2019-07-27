@@ -25,7 +25,8 @@ public class weaponSwitching : MonoBehaviour
     void Update()
     {
         if (GameManager.gameEnded) {
-            currentWeapon.CancelInvoke("Shoot");
+            if (currentWeapon)
+                currentWeapon.CancelInvoke("Shoot");
             return;
         }
             

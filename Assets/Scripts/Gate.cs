@@ -57,6 +57,12 @@ public class Gate : MonoBehaviour
     }
 
     public void OpenGate() {
+        if (PlayerStats.Money < Cost)
+        {
+            Debug.Log("Not enough money to upgrade that!");
+            return;
+        }
+
         isOpen = true;
         gateAnimator.SetBool("isOpen", isOpen);
         buildManager.SpendMoney(Cost);
